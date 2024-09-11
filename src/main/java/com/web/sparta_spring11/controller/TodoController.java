@@ -18,7 +18,8 @@ public class TodoController {
 
     @PostMapping("/todos")
     public TodoSaveResponseDto saveTodo(@RequestBody TodoSaveRequestDto requestDto) {
-        return todoService.saveTodo(requestDto);
+        TodoSaveResponseDto dto = todoService.saveTodo(requestDto);
+        return todoService.saveTodo(requestDto); // 서비스는 비지니스 로직은 처리.
     }
 
     //선택한 일정 조회(특정한 일정)
@@ -34,7 +35,8 @@ public class TodoController {
     }
 
     //수정
-    @PutMapping("/todos/{todoId}")
-    public TodoUpdateResponseDto updateTodo(@Path)
-
+    @PutMapping("/todos/{todoId}")  // todos/2
+    public TodoUpdateResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TOdoUpdateRequestDto requestDto) {
+        return todoService.updateTodo(todoId, requestDto);
+    }
 }

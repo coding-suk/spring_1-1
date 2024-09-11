@@ -22,7 +22,7 @@ public class TodoService {
     private final TodoRepository todoRepository;
 
     public TodoSaveResponseDto saveTodo(TodoSaveRequestDto requestDto) {
-        Todo newTodo = new Todo(requestDto.getTodo(), requestDto.getName(), requestDto.getPw());
+        Todo newTodo = new Todo(requestDto.getTodo(), requestDto.getName(), requestDto.getPw()); // 엔티티로 변환해서 전잘
 
         Todo savedTodo = todoRepository.save(newTodo);
         return new TodoSaveResponseDto(
