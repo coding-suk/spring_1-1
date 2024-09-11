@@ -1,9 +1,6 @@
 package com.web.sparta_spring11.service;
 
-import com.web.sparta_spring11.dto.TodoDetailResponseDto;
-import com.web.sparta_spring11.dto.TodoSaveRequestDto;
-import com.web.sparta_spring11.dto.TodoSaveResponseDto;
-import com.web.sparta_spring11.dto.TodoSimpleResponseDto;
+import com.web.sparta_spring11.dto.*;
 import com.web.sparta_spring11.entity.Todo;
 import com.web.sparta_spring11.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -52,5 +49,30 @@ public class TodoService {
             dtoList.add(dto);
         }
         return dtoList;
+    }
+
+    public TodoUpdateResponseDto updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("할일이 없어요"));
+
+        todo.update(requestDto.getTodo(), requestDto.getName());
+        return new TodoUpdateResponseDto(todo.getId(), todo.getTodo(), todo.getName());
+    }
+
+    public void deleteTodo(Long todoId, TodoDeletRequestDto requestDto) {
+        String password = requestDto.getPw();
+        if(password == null) {
+            throw new NullPointerException("비밀번호가 없음");
+        }
+
+        Todo todo = todoRepository.findById(todoId).orElseThrow(()-> new NullPointerException("할일이 없어요"));
+
+        if(!password.equals(todo.getPw())) {
+            throw new RuntimeException("비번이 틀립니다");
+        }
+//        ObjectUtils.nullSafeEquals(todo.getPw(), requestDto.getPw()); //?
+
+        todoRepository.delete(todo);
+        // 마지막 삭제 부분이 잘 모르겠음
+
     }
 }

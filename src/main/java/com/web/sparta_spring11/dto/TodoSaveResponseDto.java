@@ -12,7 +12,7 @@ public class TodoSaveResponseDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
-    public TodoSaveResponseDto(String todo, String name,, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public TodoSaveResponseDto(String todo, String name, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.todo = todo;
         this.name = name;
         this.createdAt = createdAt;

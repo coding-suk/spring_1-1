@@ -1,9 +1,6 @@
 package com.web.sparta_spring11.controller;
 
-import com.web.sparta_spring11.dto.TodoDetailResponseDto;
-import com.web.sparta_spring11.dto.TodoSaveRequestDto;
-import com.web.sparta_spring11.dto.TodoSaveResponseDto;
-import com.web.sparta_spring11.dto.TodoSimpleResponseDto;
+import com.web.sparta_spring11.dto.*;
 import com.web.sparta_spring11.service.TodoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +33,12 @@ public class TodoController {
 
     //수정
     @PutMapping("/todos/{todoId}")  // todos/2
-    public TodoUpdateResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TOdoUpdateRequestDto requestDto) {
+    public TodoUpdateResponseDto updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto requestDto) {
         return todoService.updateTodo(todoId, requestDto);
+    }
+
+    @DeleteMapping("/todos/{todoId}")
+    public void deleteTodo(@PathVariable Long todoId, @RequestBody TodoDeletRequestDto requestDto) {
+        todoService.deleteTodo(todoId, requestDto);
     }
 }
